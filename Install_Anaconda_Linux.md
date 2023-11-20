@@ -25,4 +25,18 @@ on the very bottom of that file add
 
 ``` alias conda_shell='eval "$(/home/[user]/anaconda3/bin/conda shell.bash hook)"' ```
 
-now, whenever you run **conda_shell**, it brings up the conda
+now, whenever you run **conda_shell**, it brings up the **conda**
+
+To look through a list of what conda has that you can download..
+
+``` conda list ```
+
+To search for Python versions..
+
+``` conda search "^python$" ```
+
+Installing **conda** automatically comes with Jupyter Notebook package
+
+To use Jupyter Notebook, create a directory or go to a directory of your choice and on the terminal run..
+
+``` jupyter notebook ```
