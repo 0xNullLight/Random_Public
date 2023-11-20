@@ -43,4 +43,4 @@ To use Jupyter Notebook, create a directory or go to a directory of your choice 
 
 And it should create a Jupyter Notebook for you that you should be able to access at
 
-```` http://localhost:8888/tree ```
+``` http://localhost:8888/tree ```
