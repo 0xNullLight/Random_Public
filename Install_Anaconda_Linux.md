@@ -40,3 +40,7 @@ Installing **conda** automatically comes with Jupyter Notebook package
 To use Jupyter Notebook, create a directory or go to a directory of your choice and on the terminal run..
 
 ``` jupyter notebook ```
+
+And it should create a Jupyter Notebook for you that you should be able to access at
+
+```` http://localhost:8888/tree ```
