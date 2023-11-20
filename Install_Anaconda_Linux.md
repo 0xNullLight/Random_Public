@@ -48,3 +48,6 @@ And it should create a Jupyter Notebook for you that you should be able to acces
 **To run the Anaconda Navigator, on the terminal run..**
 
 ``` anaconda-navigator ```
+
+Tweeked some stuff here, but some of these informations came from..
+https://www.youtube.com/watch?v=7-naqq9fvZE
