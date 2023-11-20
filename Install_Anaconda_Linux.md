@@ -23,6 +23,6 @@ HOWEVER, if you want to just add an **alias** so you can have better control on 
 
 on the very bottom of that file add
 
-``` alias conda_shell='eval "$(/home/jiaoyinyang/anaconda3/bin/conda shell.bash hook)"' ```
+``` alias conda_shell='eval "$(/home/[user]/anaconda3/bin/conda shell.bash hook)"' ```
 
 now, whenever you run **conda_shell**, it brings up the conda
