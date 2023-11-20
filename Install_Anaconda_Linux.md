@@ -1,7 +1,7 @@
 1) https://www.anaconda.com/download
 2) https://repo.anaconda.com/archive/
 
-# Install Anaconda
+# Install Anaconda on Linux
 
 ``` bash Anaconda3-2023.09-0-Linux-x86_64.sh ```
 
@@ -27,15 +27,15 @@ on the very bottom of that file add
 
 now, whenever you run **conda_shell**, it brings up the **conda**
 
-To look through a list of what conda has that you can download..
+**To look through a list of what conda has that you can download..**
 
 ``` conda list ```
 
-To search for Python versions..
+**To search for Python versions..**
 
 ``` conda search "^python$" ```
 
-Installing **conda** automatically comes with Jupyter Notebook package
+**Installing **conda** automatically comes with Jupyter Notebook package**
 
 To use Jupyter Notebook, create a directory or go to a directory of your choice and on the terminal run..
 
@@ -45,6 +45,6 @@ And it should create a Jupyter Notebook for you that you should be able to acces
 
 ``` http://localhost:8888/tree ```
 
-To run the Anaconda Navigator, on the terminal run..
+**To run the Anaconda Navigator, on the terminal run..**
 
 ``` anaconda-navigator ```
