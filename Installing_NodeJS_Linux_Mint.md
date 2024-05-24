@@ -12,6 +12,8 @@
 
 **Source:**
 - https://nodejs.org/en/download/package-manager
+- https://codedamn.com/news/nodejs/nvm-installation-setup-guide
+- https://stackoverflow.com/questions/16904658/node-version-manager-install-nvm-command-not-found
 
 # Note:
 `open ~/.bashrc`
