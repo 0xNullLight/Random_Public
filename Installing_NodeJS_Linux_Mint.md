@@ -14,6 +14,7 @@
 - https://nodejs.org/en/download/package-manager
 - https://codedamn.com/news/nodejs/nvm-installation-setup-guide
 - https://stackoverflow.com/questions/16904658/node-version-manager-install-nvm-command-not-found
+- https://stackoverflow.com/questions/42606837/how-do-i-use-bash-on-windows-from-the-visual-studio-code-integrated-terminal
 
 # Note:
 `open ~/.bashrc`
