@@ -1,4 +1,4 @@
-# Git and Git Bash Tutorial for Beginners
+# Git and Git Bash Tutorial
 
 This tutorial will guide you through the basic tasks you will commonly use in Git and Git Bash, including cloning a repository, creating and switching branches, adding and committing files, pushing changes, and renaming folders.
 
