@@ -1,3 +1,4 @@
+
 # Git and Git Bash Tutorial
 
 This tutorial will guide you through common tasks using Git and Git Bash, including cloning a repository, working with branches, adding and committing files, pushing changes, renaming folders, and fetching updates.
@@ -229,7 +230,7 @@ ___
 Below is the typical workflow (quick and easy)
 VVVVVVVVVV**
 
-# Quick Git Workflow
+# Quick, Agile Approach to Git Workflow
 
 In an Agile environment, speed and efficiency are key. Here's a streamlined version of the typical Git process, focusing on rapid iteration and collaboration:
 
