@@ -225,40 +225,43 @@ If you made changes but want to undo them without deleting the changes in your w
    ```
 ___
 
-**VVVVVVVVVV
+**VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 Below is the typical workflow (quick and easy)
-VVVVVVVVVV**
+VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV**
 
-## Quick, Agile Approach to Git Workflow
+# Quick Git Workflow
 
 In an Agile environment, speed and efficiency are key. Here's a streamlined version of the typical Git process, focusing on rapid iteration and collaboration:
 
-1. **Pull latest changes** from the main branch to ensure your local repo is up-to-date:
-   ```bash
-   git pull origin main
-   ```
+### 1. Clone the Repository
 
-2. **Create and switch to a new branch** for your task or feature:
-   ```bash
-   git checkout -b feature/new-feature
-   ```
+```bash
+git clone [repo_url]
+cd [repository_name]
+```
 
-3. **Check the status** of your working directory to identify changes:
-   ```bash
-   git status
-   ```
+### 2. Switch to the Correct Branch (if needed)
 
-4. **Make your changes**, **add files**, and **commit**:
-   ```bash
-   git add .
-   git commit -m "Implemented new feature X"
-   ```
+```bash
+git checkout [branch_name]
+```
 
-5. **Push your branch** to the remote repository:
-   ```bash
-   git push origin feature/new-feature
-   ```
+### 3. Add Your Files
 
-6. **Create a pull request (PR)** from the feature branch to the main branch (usually done on the Git platform UI like GitHub or GitLab).
+```bash
+git add [file_name]  # or use . to add everything
+```
 
-7. **Review and merge** once approved by the team (can be automated in some workflows).
+### 4. Commit the Changes
+
+```bash
+git commit -m "Your commit message"
+```
+
+### 5. Push to the Remote Branch
+
+```bash
+git push origin [branch_name]
+```
+
+That’s it! You've cloned, added files, committed, and pushed changes.
