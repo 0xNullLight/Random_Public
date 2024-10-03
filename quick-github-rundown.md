@@ -225,9 +225,9 @@ If you made changes but want to undo them without deleting the changes in your w
    ```
 ___
 
-**VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+**VVVVVVVVVV
 Below is the typical workflow (quick and easy)
-VVVVVVVVVVVVVVVVVVVVVVVVVVVVVV**
+VVVVVVVVVV**
 
 # Quick Git Workflow
 
