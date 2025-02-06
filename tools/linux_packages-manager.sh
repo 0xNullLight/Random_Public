@@ -1,24 +1,19 @@
 #!/bin/bash
 
 # Load package list from packages.txt
-# The script checks if the "packages.txt" file exists in the same directory.
-# If it exists, it reads the package names from the file into an array called package_list.
-# If the file is not found, the script will display an error message and exit.
-
 if [ -f "packages.txt" ]; then
-  mapfile -t package_list < packages.txt  # Read each line from packages.txt into the array
+  mapfile -t package_list < packages.txt
 else
   echo "Error: packages.txt not found! Please make sure the file exists in the same directory as this script."
-  exit 1  # Exit the script if packages.txt is not found
+  exit 1
 fi
 
 # Function to handle package operations (install/remove)
-# This function performs the chosen operation (install or remove) on the packages.
 handle_package_operation() {
-  local operation=$1  # The operation passed (install/remove)
-  local action=$2  # Action description (install/remove)
+  local operation=$1
+  local action=$2
 
-  clear  # Clear the screen for better readability
+  clear
   echo "========================================"
   echo "Welcome to the Package Manager!"
   echo "========================================"
@@ -26,77 +21,109 @@ handle_package_operation() {
   echo "Choose from a list of available packages or select all to perform the operation for all packages."
   echo "========================================"
 
-  # Display packages with numbers
-  # This loop goes through each package in the list and displays it with a number for easy selection.
   for i in "${!package_list[@]}"; do
-    echo "$((i+1)). ${package_list[$i]}"  # Display package number and name
+    echo "$((i+1)). ${package_list[$i]}"
   done
   echo "----------------------------------------"
   echo "Type 'all' to $action all packages or enter the package number/name:"
-  read user_input  # Get the user's choice
+  read user_input
 
-  # Function to install or remove packages
-  # This function performs the actual installation or removal.
   perform_operation() {
-    local pkg=$1  # Package name passed to the function
+    local pkg=$1
     if [[ "$operation" == "install" ]]; then
-      # Check if the package is already installed
       if dpkg -l | grep -q "^ii  $pkg "; then
-        echo "$pkg is already installed. Skipping..."  # Skip if the package is already installed
+        echo "$pkg is already installed. Skipping..."
       else
-        # Install the package using apt and show a success or error message
         sudo apt install -y "$pkg" && echo "$pkg installed successfully!" || echo "Error installing $pkg"
       fi
     elif [[ "$operation" == "remove" ]]; then
-      # Check if the package is installed before removing it
       if dpkg -l | grep -q "^ii  $pkg "; then
-        # Remove the package using apt and show a success or error message
         sudo apt remove -y "$pkg" && echo "$pkg removed successfully!" || echo "Error removing $pkg"
       else
-        echo "$pkg is not installed. Skipping removal."  # Skip if the package is not installed
+        echo "$pkg is not installed. Skipping removal."
       fi
     fi
   }
 
-  # Check if the input is 'all' (the user wants to apply the operation to all packages)
   if [[ "$user_input" == "all" ]]; then
     echo "$action all packages..."
     for pkg in "${package_list[@]}"; do
-      perform_operation "$pkg"  # Apply the operation to all packages
+      perform_operation "$pkg"
     done
-  # Check if the input is a number and within the valid range of package list
   elif [[ "$user_input" =~ ^[0-9]+$ ]] && [ "$user_input" -ge 1 ] && [ "$user_input" -le "${#package_list[@]}" ]; then
-    selected_package="${package_list[$user_input-1]}"  # Get the package based on the user's input
-    perform_operation "$selected_package"  # Apply the operation to the selected package
-  # If the input is a valid package name, install/remove it
+    selected_package="${package_list[$user_input-1]}"
+    perform_operation "$selected_package"
   elif [[ " ${package_list[@]} " =~ " $user_input " ]]; then
-    perform_operation "$user_input"  # Apply the operation to the valid package name
+    perform_operation "$user_input"
   else
-    echo "Invalid input. Please try again."  # If the input is invalid, prompt the user to try again
+    echo "Invalid input. Please try again."
   fi
 }
 
-# Function to check if packages are installed
-# This function checks whether each package in the list is installed or not and prints the result.
+# Function to check installed packages
 check_installed_packages() {
-  clear  # Clear the screen for better readability
+  clear
   echo "========================================"
   echo "Checking installed packages:"
   echo "========================================"
-  
+
   for pkg in "${package_list[@]}"; do
-    # Check if the package is installed using dpkg command
     if dpkg -l | grep -q "^ii  $pkg "; then
-      echo "$pkg is installed."  # If the package is installed, print the message
+      echo "$pkg is installed."
     else
-      echo "$pkg is not installed."  # If the package is not installed, print the message
+      echo "$pkg is not installed."
     fi
   done
 }
 
-# Main menu with options to install, remove, or check installed packages
-# The script starts by displaying a main menu to the user.
-clear  # Clear the screen for better readability
+# Function to list all installed packages and save to a file
+list_and_save_installed_packages() {
+  clear
+  echo "========================================"
+  echo "Listing all installed packages:"
+  echo "========================================"
+
+  # Get list of all installed packages
+  installed_packages=$(dpkg -l | grep '^ii' | awk '{print $2}')
+
+  echo "$installed_packages"
+  
+  # Ask the user if they want to save the list to a file
+  read -p "Do you want to save this list to 'installed_packages.txt'? (y/n): " save_choice
+  if [[ "$save_choice" == "y" || "$save_choice" == "Y" ]]; then
+    echo "$installed_packages" > installed_packages.txt
+    echo "List of installed packages saved to 'installed_packages.txt'."
+  else
+    echo "The list will not be saved."
+  fi
+}
+
+# Function to check if the packages in packages.txt are installed
+check_packages_in_installed_list() {
+  clear
+  echo "========================================"
+  echo "Checking if packages in 'packages.txt' are installed:"
+  echo "========================================"
+
+  # Load installed packages from installed_packages.txt (if it exists)
+  if [ -f "installed_packages.txt" ]; then
+    mapfile -t installed_list < installed_packages.txt
+  else
+    installed_list=($(dpkg -l | grep '^ii' | awk '{print $2}'))
+  fi
+
+  # Compare each package in packages.txt with the installed packages
+  for pkg in "${package_list[@]}"; do
+    if [[ " ${installed_list[@]} " =~ " $pkg " ]]; then
+      echo "$pkg is installed."
+    else
+      echo "$pkg is NOT installed."
+    fi
+  done
+}
+
+# Main menu with options to install, remove, check installed packages, list installed packages, or check packages in installed list
+clear
 echo "========================================"
 echo "Welcome to the Package Manager Script!"
 echo "========================================"
@@ -106,19 +133,27 @@ echo ""
 echo "Before we get started, ensure that 'packages.txt' is in the same directory as this script."
 echo ""
 echo "========================================"
-echo "What would you like to do?"
+echo "What would you like to do? ('packages.txt')"
 echo "========================================"
 echo "1. Install packages"
 echo "2. Remove packages"
 echo "3. Check if packages are installed"
+echo ""
+echo "========================================"
+echo "Advance Usages"
+echo "========================================"
+echo "4. List all installed packages on computer and save to a file 'installed_packages.txt'"
+echo "5. Check if packages in 'packages.txt' matches 'installed_packages.txt'"
 echo "========================================"
 echo ""
-read -p "Select an option (1, 2, or 3): " action  # Prompt the user to choose an action
+read -p "Select an option (1, 2, 3, 4, or 5): " action
 
 # Handle the user's choice using a case statement
 case $action in
   1) handle_package_operation "install" "install" ;;  # Call the function to install packages
   2) handle_package_operation "remove" "remove" ;;  # Call the function to remove packages
   3) check_installed_packages ;;  # Call the function to check installed packages
-  *) echo "Invalid option. Please select 1, 2, or 3." ;;  # If the user inputs an invalid option, display an error
+  4) list_and_save_installed_packages ;;  # Call the function to list and save installed packages
+  5) check_packages_in_installed_list ;;  # Call the function to check if packages in packages.txt are installed
+  *) echo "Invalid option. Please select 1, 2, 3, 4, or 5." ;;  # If the user inputs an invalid option, display an error
 esac
